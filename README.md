@@ -207,6 +207,7 @@ The dataset contains information such as:
 * User authentication
 * Real-time dashboard updates
 * Database hosting
+* Streamlit deployment
 * Power BI cloud integration
 * Predictive analytics using Machine Learning
 
