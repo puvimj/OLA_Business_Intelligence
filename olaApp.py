@@ -3,6 +3,7 @@ import streamlit as st
 from sqlalchemy import create_engine, text
 import base64
 import plotly.express as px
+from pathlib import Path
 
 # ── Loading CSS ────────────────────────────────────────────────────────────
 def load_css(file_name: str):
@@ -21,7 +22,9 @@ st.set_page_config(
 )
 
 # ── Data Cleaning - EDA  ────────────────────────────────────────────────────────────
-df = pd.read_excel(r"C:\GUVI Projects\OLA\OLA_Rides\data\OLA_DataSet.xlsx")
+BASE_DIR = Path(__file__).parent
+CSV_FILE = BASE_DIR / "data" / "OLA_DataSet.xlsx"
+df = pd.read_excel(CSV_FILE)
 
 df['V_TAT'] = df['V_TAT'].fillna(df['V_TAT'].mean())
 df['C_TAT'] = df['C_TAT'].fillna(df['C_TAT'].mean())
@@ -49,7 +52,7 @@ df['Ride_Day'] = df['Date'].dt.day_name()
 df['Ride_Month'] = df['Date'].dt.month_name()
 df['Is_Weekend'] = df['Date'].dt.dayofweek >= 5
 
-df.to_csv(r"C:\GUVI Projects\OLA\OLA_Rides\data\OLA_Cleaned_DataSet.csv", index=False)
+df.to_csv(BASE_DIR / "data" / "OLA_Cleaned_DataSet.csv", index=False)
 
 # ── PostgreSQL connection details ────────────────────────────────────────────────────────────
 DB_USER     = "postgres"
@@ -65,7 +68,7 @@ engine = create_engine(
 )
 
 # ── Table Insertion ────────────────────────────────────────────────────────────
-CSV_FILE = r"C:\GUVI Projects\OLA\OLA_Rides\data\OLA_Cleaned_DataSet.csv"
+CSV_FILE = BASE_DIR / "data" / "OLA_Cleaned_DataSet.csv"
 if "db_initialized" not in st.session_state:
     print("Reading CSV...")
 
@@ -95,7 +98,7 @@ def get_base64(img_path: str) -> str:
     with open(img_path, "rb") as f:
         return base64.b64encode(f.read()).decode()
 
-bg_img = get_base64(r"C:\GUVI Projects\OLA\OLA_Rides\images\olabg.png")
+bg_img = get_base64(BASE_DIR / "images/olabg.png")
 
 # ── Full-width Header ─────────────────────────────────────────────────────────
 st.markdown(f"""
