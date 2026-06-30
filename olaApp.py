@@ -138,7 +138,7 @@ with col_sidebar:
 
     page = st.radio(
         " ",
-        ["🏠 Home", "🚗 OLA Rides", "📊 Power BI"],
+        ["🏠 Home", "🚗 OLA Rides"],
         label_visibility="collapsed"
     )
 
@@ -405,13 +405,13 @@ with col_main:
             elif chosen_question.startswith("Q5:"):
                 st.subheader("🚖 Driver Cancellation Analysis")
                 sql = """
-                    SELECT COUNT(*) AS "Canceled Rides By Driver"
+                    SELECT COUNT(*) AS "Canceled Rides By Driver Due To Personal and Car Related Issues"
                     FROM "OLA_Bookings"
                     WHERE "Canceled_Rides_by_Driver" = 'Personal & Car related issue' ;
                 """
                 try:
                     df = execute_sql(sql)
-                    df["Canceled Rides By Driver"] = df["Canceled Rides By Driver"].astype(str)
+                    df["Canceled Rides By Driver Due To Personal and Car Related Issues"] = df["Canceled Rides By Driver Due To Personal and Car Related Issues"].astype(str)
 
                     st.dataframe(df, width="stretch", hide_index=True)
                     st.success(f"""**Business Insight:** Monitoring driver cancellation reasons helps improve
