@@ -1,0 +1,21 @@
+# Virtual Environment
+Include/
+Lib/
+Scripts/
+share/
+etc/
+pyvenv.cfg
+
+# Python
+__pycache__/
+*.pyc
+
+# VS Code
+.vscode/
+
+# Streamlit
+.streamlit/
+
+# Others
+.DS_Store
+Thumbs.db
